@@ -1,0 +1,28 @@
+
+=====================
+Resource Manager Module
+=====================
+1. Change the if loop for busy wait in resource module to While loooop
+2. Add a simple return at the end of Resource module file
+3. In the release terminal loop,while changing status of all other processes to 0, start the loop from 0.
+
+======================
+Console Interrupt Module
+======================
+1. When you push variables you used till now,and make sure you dont have all variables in R1,R2... as like
+	alias reqPID R1;
+	reqPID = 1;
+	multipush(R1);
+	R1= 9;
+	R2 =reqPID;		//This will go wrong
+
+	
+
+========================
+INT_6 Code
+========================
+1. The argument it receives as word address in (UserSP - 3) is logical address and also stack (UserSP -3) is also logical address
+	Its like a logical address stored in a logical address	(lmao that doesnt make sense but you get what I mean)
+   	
+	So you need to convert the stack UserSP - 3 into physical address in INT_6 code and extract the value in it and pass it to MOD_4 ,
+	in MOD_4 it receivesthe argument of logical address of word ,so its again translated to physical address and our result is stored there 
