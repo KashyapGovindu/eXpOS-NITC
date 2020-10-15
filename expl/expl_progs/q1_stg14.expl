@@ -1,0 +1,47 @@
+decl
+	int isprime(int a);
+enddecl
+
+int isprime(int a)
+{
+decl
+	int x,c,d;
+enddecl
+
+begin
+	x=1;
+	c=0;
+	while( x < a)do
+		d = a % x;
+		if(d == 0)then
+			c = c + 1;
+		endif;
+		x = x + 1;
+	endwhile;
+	if(c > 1)then
+		d = 0;
+	else
+		d = 1;
+	endif;
+	return d;
+end
+}
+
+
+int main()
+{
+decl
+	int a,b,c;
+enddecl
+begin
+	a=2;
+	while(a <= 100)do
+		b = isprime(a);
+		if(b==1)then
+			write(a);
+		endif;
+		a = a + 1;
+	endwhile;
+	return 0;
+end
+}

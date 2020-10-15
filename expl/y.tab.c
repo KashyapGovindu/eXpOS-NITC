@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.6.3.  */
+/* A Bison parser, made by GNU Bison 3.7.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
@@ -49,7 +49,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "3.6.3"
+#define YYBISON_VERSION "3.7.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -685,6 +685,7 @@ union yyalloc
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  247
 
+/* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   305
 
 
@@ -1282,7 +1283,7 @@ yydestruct (const char *yymsg,
 }
 
 
-/* The lookahead symbol.  */
+/* Lookahead token kind.  */
 int yychar;
 
 /* The semantic value of the lookahead symbol.  */
@@ -1300,34 +1301,30 @@ int yynerrs;
 int
 yyparse (void)
 {
-    yy_state_fast_t yystate;
+    yy_state_fast_t yystate = 0;
     /* Number of tokens to shift before error messages enabled.  */
-    int yyerrstatus;
+    int yyerrstatus = 0;
 
-    /* The stacks and their tools:
-       'yyss': related to states.
-       'yyvs': related to semantic values.
-
-       Refer to the stacks through separate pointers, to allow yyoverflow
+    /* Refer to the stacks through separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
 
     /* Their size.  */
-    YYPTRDIFF_T yystacksize;
+    YYPTRDIFF_T yystacksize = YYINITDEPTH;
 
-    /* The state stack.  */
+    /* The state stack: array, bottom, top.  */
     yy_state_t yyssa[YYINITDEPTH];
-    yy_state_t *yyss;
-    yy_state_t *yyssp;
+    yy_state_t *yyss = yyssa;
+    yy_state_t *yyssp = yyss;
 
-    /* The semantic value stack.  */
+    /* The semantic value stack: array, bottom, top.  */
     YYSTYPE yyvsa[YYINITDEPTH];
-    YYSTYPE *yyvs;
-    YYSTYPE *yyvsp;
+    YYSTYPE *yyvs = yyvsa;
+    YYSTYPE *yyvsp = yyvs;
 
   int yyn;
   /* The return value of yyparse.  */
   int yyresult;
-  /* Lookahead token as an internal (translated) token number.  */
+  /* Lookahead symbol kind.  */
   yysymbol_kind_t yytoken = YYSYMBOL_YYEMPTY;
   /* The variables used to return semantic value and location from the
      action routines.  */
@@ -1340,15 +1337,6 @@ yyparse (void)
   /* The number of symbols on the RHS of the reduced rule.
      Keep to zero when no symbol should be popped.  */
   int yylen = 0;
-
-  yynerrs = 0;
-  yystate = 0;
-  yyerrstatus = 0;
-
-  yystacksize = YYINITDEPTH;
-  yyssp = yyss = yyssa;
-  yyvsp = yyvs = yyvsa;
-
 
   YYDPRINTF ((stderr, "Starting parse\n"));
 
@@ -1550,43 +1538,43 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2:
+  case 2: /* program: TypeDefBlock gdeclaration fdeflist mainblock  */
 #line 97 "abstree.y"
                                                        {
 			                                            fclose(intermediate);
                         								}
-#line 1559 "y.tab.c"
+#line 1547 "y.tab.c"
     break;
 
-  case 3:
+  case 3: /* program: TypeDefBlock gdeclaration mainblock  */
 #line 100 "abstree.y"
                                                  {
 		                                            fclose(intermediate);
                                     			 }
+#line 1555 "y.tab.c"
+    break;
+
+  case 4: /* TypeDefBlock: TYPE TypeDefList ENDTYPE  */
+#line 105 "abstree.y"
+                                            {}
+#line 1561 "y.tab.c"
+    break;
+
+  case 5: /* TypeDefBlock: %empty  */
+#line 106 "abstree.y"
+                                            {}
 #line 1567 "y.tab.c"
     break;
 
-  case 4:
-#line 105 "abstree.y"
-                                            {}
-#line 1573 "y.tab.c"
-    break;
-
-  case 5:
-#line 106 "abstree.y"
-                                            {}
-#line 1579 "y.tab.c"
-    break;
-
-  case 8:
+  case 8: /* TypeDef: ID '{' FieldDeclList '}'  */
 #line 113 "abstree.y"
                                      {
 	                                    TInstall((yyvsp[-3].nptr)->name, 0, Fhead); //size is initialized to 0. actual size is calculated in TInstall
                                		}
-#line 1587 "y.tab.c"
+#line 1575 "y.tab.c"
     break;
 
-  case 11:
+  case 11: /* FieldDecl: FieldType ID ';'  */
 #line 122 "abstree.y"
                                 {
 	                                if(FLookup ((yyvsp[-1].nptr)->name, Fhead) != NULL)
@@ -1596,62 +1584,62 @@ yyreduce:
 	                                }
 						            FInstall(declarationType, (yyvsp[-1].nptr)->name);
 								}
-#line 1600 "y.tab.c"
+#line 1588 "y.tab.c"
     break;
 
-  case 12:
+  case 12: /* gdeclaration: DECL GDeclList ENDDECL  */
 #line 131 "abstree.y"
                                         {
                                             start();
                                         }
-#line 1608 "y.tab.c"
+#line 1596 "y.tab.c"
     break;
 
-  case 13:
+  case 13: /* gdeclaration: %empty  */
 #line 134 "abstree.y"
                                         {
                                             start();
                                         }
+#line 1604 "y.tab.c"
+    break;
+
+  case 14: /* GDeclList: GDecl  */
+#line 139 "abstree.y"
+                              {}
+#line 1610 "y.tab.c"
+    break;
+
+  case 15: /* GDeclList: GDeclList GDecl  */
+#line 140 "abstree.y"
+                              {}
 #line 1616 "y.tab.c"
     break;
 
-  case 14:
-#line 139 "abstree.y"
-                              {}
+  case 16: /* GDecl: TypeName Gidlist ';'  */
+#line 143 "abstree.y"
+                                {}
 #line 1622 "y.tab.c"
     break;
 
-  case 15:
-#line 140 "abstree.y"
-                              {}
-#line 1628 "y.tab.c"
-    break;
-
-  case 16:
-#line 143 "abstree.y"
-                                {}
-#line 1634 "y.tab.c"
-    break;
-
-  case 17:
+  case 17: /* Gidlist: ID  */
 #line 146 "abstree.y"
                         {
                             verify((yyvsp[0].nptr), 1, 0, 0, NULL);
                             GInstall((yyvsp[0].nptr)->name, declarationType, 1, NULL);
                         }
-#line 1643 "y.tab.c"
+#line 1631 "y.tab.c"
     break;
 
-  case 18:
+  case 18: /* Gidlist: ID '[' NUM ']'  */
 #line 150 "abstree.y"
                        {
                             verify((yyvsp[-3].nptr), 1, 0, 0, NULL);
                             install_id((yyvsp[-3].nptr), (yyvsp[-1].nptr), declarationType);
                         }
-#line 1652 "y.tab.c"
+#line 1640 "y.tab.c"
     break;
 
-  case 19:
+  case 19: /* Gidlist: ID '(' ParamList ')'  */
 #line 154 "abstree.y"
                               {
                                 declcount++; //  to keep track of number of functions declared
@@ -1660,28 +1648,28 @@ yyreduce:
                                 Phead = NULL;
                                 Ptail = NULL;
                             }
-#line 1664 "y.tab.c"
+#line 1652 "y.tab.c"
     break;
 
-  case 20:
+  case 20: /* Gidlist: Gidlist ',' ID  */
 #line 161 "abstree.y"
                             {
                                 verify((yyvsp[0].nptr), 1, 0, 0, NULL);
                                 GInstall((yyvsp[0].nptr)->name,declarationType,1,NULL);
                             }
-#line 1673 "y.tab.c"
+#line 1661 "y.tab.c"
     break;
 
-  case 21:
+  case 21: /* Gidlist: Gidlist ',' ID '[' NUM ']'  */
 #line 165 "abstree.y"
                                   {
                                     verify((yyvsp[-3].nptr), 1, 0, 0, NULL);
                                     install_id((yyvsp[-3].nptr), (yyvsp[-1].nptr), declarationType);
                                 }
-#line 1682 "y.tab.c"
+#line 1670 "y.tab.c"
     break;
 
-  case 22:
+  case 22: /* Gidlist: Gidlist ',' ID '(' ParamList ')'  */
 #line 169 "abstree.y"
                                          {
                                             declcount++; //  to keep track of number of functions declared
@@ -1690,44 +1678,44 @@ yyreduce:
                                             Phead = NULL;
                                             Ptail = NULL;
                                         }
+#line 1682 "y.tab.c"
+    break;
+
+  case 23: /* FieldType: INT  */
+#line 178 "abstree.y"
+                    {declarationType = TLookup("integer");}
+#line 1688 "y.tab.c"
+    break;
+
+  case 24: /* FieldType: STR  */
+#line 179 "abstree.y"
+                    {declarationType = TLookup("string");}
 #line 1694 "y.tab.c"
     break;
 
-  case 23:
-#line 178 "abstree.y"
-                    {declarationType = TLookup("integer");}
-#line 1700 "y.tab.c"
-    break;
-
-  case 24:
-#line 179 "abstree.y"
-                    {declarationType = TLookup("string");}
-#line 1706 "y.tab.c"
-    break;
-
-  case 25:
+  case 25: /* FieldType: ID  */
 #line 180 "abstree.y"
                     {
                         declarationType = TLookup((yyvsp[0].nptr)->name);
                         if (declarationType == NULL)
                             declarationType = TLookup("dummy");
                     }
+#line 1704 "y.tab.c"
+    break;
+
+  case 26: /* TypeName: INT  */
+#line 187 "abstree.y"
+                    {declarationType = TLookup("integer");}
+#line 1710 "y.tab.c"
+    break;
+
+  case 27: /* TypeName: STR  */
+#line 188 "abstree.y"
+                    {declarationType = TLookup("string");}
 #line 1716 "y.tab.c"
     break;
 
-  case 26:
-#line 187 "abstree.y"
-                    {declarationType = TLookup("integer");}
-#line 1722 "y.tab.c"
-    break;
-
-  case 27:
-#line 188 "abstree.y"
-                    {declarationType = TLookup("string");}
-#line 1728 "y.tab.c"
-    break;
-
-  case 28:
+  case 28: /* TypeName: ID  */
 #line 189 "abstree.y"
                     {
                         declarationType = TLookup((yyvsp[0].nptr)->name);
@@ -1737,22 +1725,22 @@ yyreduce:
                             exit(1);
                         }
                     }
+#line 1729 "y.tab.c"
+    break;
+
+  case 29: /* FType: INT  */
+#line 199 "abstree.y"
+                {FdeclarationType = TLookup("integer");}
+#line 1735 "y.tab.c"
+    break;
+
+  case 30: /* FType: STR  */
+#line 200 "abstree.y"
+                {FdeclarationType = TLookup("string");}
 #line 1741 "y.tab.c"
     break;
 
-  case 29:
-#line 199 "abstree.y"
-                {FdeclarationType = TLookup("integer");}
-#line 1747 "y.tab.c"
-    break;
-
-  case 30:
-#line 200 "abstree.y"
-                {FdeclarationType = TLookup("string");}
-#line 1753 "y.tab.c"
-    break;
-
-  case 31:
+  case 31: /* FType: ID  */
 #line 201 "abstree.y"
                 {
                    FdeclarationType = TLookup((yyvsp[0].nptr)->name);
@@ -1762,55 +1750,55 @@ yyreduce:
                         exit(1);
                     }
                 }
+#line 1754 "y.tab.c"
+    break;
+
+  case 32: /* ParamList: Param  */
+#line 211 "abstree.y"
+                                    {}
+#line 1760 "y.tab.c"
+    break;
+
+  case 33: /* ParamList: ParamList ',' Param  */
+#line 212 "abstree.y"
+                                    {}
 #line 1766 "y.tab.c"
     break;
 
-  case 32:
-#line 211 "abstree.y"
+  case 34: /* ParamList: %empty  */
+#line 213 "abstree.y"
                                     {}
 #line 1772 "y.tab.c"
     break;
 
-  case 33:
-#line 212 "abstree.y"
-                                    {}
+  case 35: /* Param: FType fvlist  */
+#line 216 "abstree.y"
+                                {}
 #line 1778 "y.tab.c"
     break;
 
-  case 34:
-#line 213 "abstree.y"
-                                    {}
-#line 1784 "y.tab.c"
-    break;
-
-  case 35:
-#line 216 "abstree.y"
-                                {}
-#line 1790 "y.tab.c"
-    break;
-
-  case 36:
+  case 36: /* fvlist: ID  */
 #line 219 "abstree.y"
                                    {
                                         verify((yyvsp[0].nptr), 0, 0, 1, NULL);
                                         PInstall((yyvsp[0].nptr)->name, FdeclarationType);
                                     }
+#line 1787 "y.tab.c"
+    break;
+
+  case 37: /* fdeflist: fdef  */
+#line 225 "abstree.y"
+                                {}
+#line 1793 "y.tab.c"
+    break;
+
+  case 38: /* fdeflist: fdeflist fdef  */
+#line 226 "abstree.y"
+                                {}
 #line 1799 "y.tab.c"
     break;
 
-  case 37:
-#line 225 "abstree.y"
-                                {}
-#line 1805 "y.tab.c"
-    break;
-
-  case 38:
-#line 226 "abstree.y"
-                                {}
-#line 1811 "y.tab.c"
-    break;
-
-  case 39:
+  case 39: /* fdef: TypeName ID '(' ParamList ')' '{' LdeclBlock Body '}'  */
 #line 229 "abstree.y"
                                                                 {
                                                                 defcount++; //  to keep track of number of functions defined
@@ -1875,58 +1863,58 @@ yyreduce:
                                                                 Lhead = NULL;
                                                                 Ltail = NULL;
                                                             }
+#line 1867 "y.tab.c"
+    break;
+
+  case 40: /* LdeclBlock: DECL ldlist ENDDECL  */
+#line 294 "abstree.y"
+                                    {}
+#line 1873 "y.tab.c"
+    break;
+
+  case 41: /* LdeclBlock: %empty  */
+#line 295 "abstree.y"
+                                    {}
 #line 1879 "y.tab.c"
     break;
 
-  case 40:
-#line 294 "abstree.y"
-                                    {}
+  case 42: /* ldlist: ldec  */
+#line 298 "abstree.y"
+                          {}
 #line 1885 "y.tab.c"
     break;
 
-  case 41:
-#line 295 "abstree.y"
-                                    {}
+  case 43: /* ldlist: ldlist ldec  */
+#line 299 "abstree.y"
+                          {}
 #line 1891 "y.tab.c"
     break;
 
-  case 42:
-#line 298 "abstree.y"
-                          {}
+  case 44: /* ldec: FType lvlist ';'  */
+#line 302 "abstree.y"
+                           {}
 #line 1897 "y.tab.c"
     break;
 
-  case 43:
-#line 299 "abstree.y"
-                          {}
-#line 1903 "y.tab.c"
-    break;
-
-  case 44:
-#line 302 "abstree.y"
-                           {}
-#line 1909 "y.tab.c"
-    break;
-
-  case 45:
+  case 45: /* lvlist: ID  */
 #line 305 "abstree.y"
                          {
                             verify((yyvsp[0].nptr), 0, 1, 0, NULL);
                             LInstall((yyvsp[0].nptr)->name, FdeclarationType);
                          }
-#line 1918 "y.tab.c"
+#line 1906 "y.tab.c"
     break;
 
-  case 46:
+  case 46: /* lvlist: lvlist ',' ID  */
 #line 309 "abstree.y"
                          {
                             verify((yyvsp[0].nptr), 0, 1, 0, NULL);
                             LInstall((yyvsp[0].nptr)->name, FdeclarationType);
                         }
-#line 1927 "y.tab.c"
+#line 1915 "y.tab.c"
     break;
 
-  case 47:
+  case 47: /* mainblock: TypeName MAIN '(' ')' '{' LdeclBlock Body '}'  */
 #line 316 "abstree.y"
                             {
                                 if (declcount != defcount)
@@ -1957,26 +1945,26 @@ yyreduce:
                                 Lhead = NULL;
                                 Ltail = NULL;
                             }
-#line 1961 "y.tab.c"
+#line 1949 "y.tab.c"
     break;
 
-  case 48:
+  case 48: /* Body: START Slist Retstmt END  */
 #line 347 "abstree.y"
                                 {
                                     (yyval.nptr) = TreeCreate(TLookup("void"), DEFAULT, NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[-1].nptr), NULL);
                                 }
-#line 1969 "y.tab.c"
+#line 1957 "y.tab.c"
     break;
 
-  case 49:
+  case 49: /* Body: START Retstmt END  */
 #line 350 "abstree.y"
                                 {
                                     (yyval.nptr) = TreeCreate(TLookup("void"), DEFAULT, NULL, NULL, NULL, NULL, (yyvsp[-1].nptr), NULL);
                                 }
-#line 1977 "y.tab.c"
+#line 1965 "y.tab.c"
     break;
 
-  case 50:
+  case 50: /* Retstmt: RETURN Expr ';'  */
 #line 355 "abstree.y"
                             {
                                 if (declarationType == (yyvsp[-1].nptr)->type)
@@ -1987,10 +1975,10 @@ yyreduce:
                                     exit(1);
                                 }
                             }
-#line 1991 "y.tab.c"
+#line 1979 "y.tab.c"
     break;
 
-  case 51:
+  case 51: /* Slist: Slist Stmt  */
 #line 366 "abstree.y"
                         {
                             head = (struct ASTNode *)malloc(sizeof(struct ASTNode));
@@ -1999,18 +1987,18 @@ yyreduce:
                             head->ptr2 = (yyvsp[0].nptr);
                             (yyval.nptr) = head;
                         }
-#line 2003 "y.tab.c"
+#line 1991 "y.tab.c"
     break;
 
-  case 52:
+  case 52: /* Slist: Stmt  */
 #line 373 "abstree.y"
                         {
                             (yyval.nptr) = (yyvsp[0].nptr);
                         }
-#line 2011 "y.tab.c"
+#line 1999 "y.tab.c"
     break;
 
-  case 53:
+  case 53: /* Stmt: ID ASGN Expr ';'  */
 #line 378 "abstree.y"
                                  {
                                     type_assign((yyvsp[-3].nptr), NULL, 0, 0, 0, 0, 0);
@@ -2024,38 +2012,38 @@ yyreduce:
                                     	type_comp((yyvsp[-3].nptr)->type, (yyvsp[-1].nptr)->type, 'a');
                                     (yyval.nptr) = TreeCreate(TLookup("void"), NODE_ASGN, NULL, NULL, NULL, (yyvsp[-3].nptr), (yyvsp[-1].nptr), NULL);
                                 }
-#line 2028 "y.tab.c"
+#line 2016 "y.tab.c"
     break;
 
-  case 54:
+  case 54: /* Stmt: ID '[' Expr ']' ASGN Expr ';'  */
 #line 390 "abstree.y"
                                           {
                                             type_assign_arr((yyvsp[-6].nptr), (yyvsp[-4].nptr), 0);
                                             type_comp((yyvsp[-6].nptr)->type, (yyvsp[-1].nptr)->type, 'a');
                                             (yyval.nptr) = TreeCreate(TLookup("void"), NODE_ARRAY_ASGN, NULL, NULL, NULL, (yyvsp[-6].nptr), (yyvsp[-4].nptr), (yyvsp[-1].nptr));
                                         }
-#line 2038 "y.tab.c"
+#line 2026 "y.tab.c"
     break;
 
-  case 55:
+  case 55: /* Stmt: READ '(' ID ')' ';'  */
 #line 395 "abstree.y"
                                 {
                                     type_assign((yyvsp[-2].nptr), NULL, 0, 0, 0, 0, 1);
                                     (yyval.nptr) = TreeCreate(TLookup("void"), NODE_READ, NULL, NULL, NULL, NULL, (yyvsp[-2].nptr), NULL);
                                 }
-#line 2047 "y.tab.c"
+#line 2035 "y.tab.c"
     break;
 
-  case 56:
+  case 56: /* Stmt: READ '(' ID '[' Expr ']' ')' ';'  */
 #line 399 "abstree.y"
                                              {
                                                 type_assign_arr((yyvsp[-5].nptr), (yyvsp[-3].nptr), 0);
                                                 (yyval.nptr) = TreeCreate(TLookup("void"), NODE_ARRAY_READ, NULL, NULL, NULL, NULL, (yyvsp[-5].nptr), (yyvsp[-3].nptr));
                                             }
-#line 2056 "y.tab.c"
+#line 2044 "y.tab.c"
     break;
 
-  case 57:
+  case 57: /* Stmt: WRITE '(' Expr ')' ';'  */
 #line 403 "abstree.y"
                                   {
                                     if ((yyvsp[-2].nptr)->type == TLookup("integer") || (yyvsp[-2].nptr)->type == TLookup("string"))
@@ -2077,47 +2065,47 @@ yyreduce:
                                     }
 
                                 }
-#line 2081 "y.tab.c"
+#line 2069 "y.tab.c"
     break;
 
-  case 58:
+  case 58: /* Stmt: IF '(' Expr ')' THEN Slist ENDIF ';'  */
 #line 424 "abstree.y"
                                {
                                		type_comp((yyvsp[-5].nptr)->type, TLookup("boolean"), 'i');
                                     (yyval.nptr) = TreeCreate(TLookup("void"), NODE_IF, NULL, NULL, NULL, (yyvsp[-5].nptr), (yyvsp[-2].nptr), NULL);
                                }
-#line 2090 "y.tab.c"
+#line 2078 "y.tab.c"
     break;
 
-  case 59:
+  case 59: /* Stmt: IF '(' Expr ')' THEN Slist ELSE Slist ENDIF ';'  */
 #line 429 "abstree.y"
                                 {
                                		type_comp((yyvsp[-7].nptr)->type, TLookup("boolean"), 'e');
                                     (yyval.nptr) = TreeCreate(TLookup("void"), NODE_IF_ELSE, NULL, NULL, NULL, (yyvsp[-7].nptr), (yyvsp[-4].nptr), (yyvsp[-2].nptr));
                                 }
-#line 2099 "y.tab.c"
+#line 2087 "y.tab.c"
     break;
 
-  case 60:
+  case 60: /* Stmt: WHILE '(' Expr ')' DO Slist ENDWHILE ';'  */
 #line 434 "abstree.y"
                                 {
                                		type_comp((yyvsp[-5].nptr)->type, TLookup("boolean"), 'w');
                                     (yyval.nptr) = TreeCreate(TLookup("void"), NODE_WHILE, NULL, NULL, NULL, (yyvsp[-5].nptr), (yyvsp[-2].nptr), NULL);
                                 }
-#line 2108 "y.tab.c"
+#line 2096 "y.tab.c"
     break;
 
-  case 61:
+  case 61: /* Stmt: ID ASGN ALLOC '(' ')' ';'  */
 #line 438 "abstree.y"
                                     {
         								type_assign((yyvsp[-5].nptr), NULL, 1, 0, 1, 0, 0);
                                         head = TreeCreate(TLookup("integer"), NODE_ALLOC, NULL, NULL, NULL, NULL, NULL, NULL);
                                         (yyval.nptr) = TreeCreate(TLookup("void"), NODE_ASGN, NULL, NULL, NULL, (yyvsp[-5].nptr), head, NULL);
                                     }
-#line 2118 "y.tab.c"
+#line 2106 "y.tab.c"
     break;
 
-  case 62:
+  case 62: /* Stmt: FIELD ASGN ALLOC '(' ')' ';'  */
 #line 443 "abstree.y"
                                        {
                                             head = get_last((yyvsp[-5].nptr));
@@ -2132,10 +2120,10 @@ yyreduce:
                                                 (yyval.nptr) = TreeCreate(TLookup("void"), NODE_ASGN, NULL, NULL, NULL, (yyvsp[-5].nptr), head, NULL);
                                             }
                                         }
-#line 2136 "y.tab.c"
+#line 2124 "y.tab.c"
     break;
 
-  case 63:
+  case 63: /* Stmt: FIELD ASGN FIELD ';'  */
 #line 456 "abstree.y"
                                         {
                                             head = get_last((yyvsp[-3].nptr));
@@ -2148,10 +2136,10 @@ yyreduce:
                                                 exit(1);
                                             }
                                         }
-#line 2152 "y.tab.c"
+#line 2140 "y.tab.c"
     break;
 
-  case 64:
+  case 64: /* Stmt: FIELD ASGN Expr ';'  */
 #line 467 "abstree.y"
                                                         {
                                             head = get_last((yyvsp[-3].nptr));
@@ -2163,19 +2151,19 @@ yyreduce:
                                                 exit(1);
                                             }
                                         }
-#line 2167 "y.tab.c"
+#line 2155 "y.tab.c"
     break;
 
-  case 65:
+  case 65: /* Stmt: FREE '(' ID ')' ';'  */
 #line 477 "abstree.y"
                                         {
                                             type_assign((yyvsp[-2].nptr), NULL, 1, 1, 0, 0, 0);
                                             (yyval.nptr) = TreeCreate(TLookup("void"), NODE_FREE, NULL, NULL, NULL, NULL, (yyvsp[-2].nptr), NULL);
                                         }
-#line 2176 "y.tab.c"
+#line 2164 "y.tab.c"
     break;
 
-  case 66:
+  case 66: /* Stmt: FREE '(' FIELD ')' ';'  */
 #line 481 "abstree.y"
                                             {
                                             head = get_last((yyvsp[-2].nptr));
@@ -2186,10 +2174,10 @@ yyreduce:
                                             }
                                             (yyval.nptr) = TreeCreate(TLookup("void"), NODE_FREE, NULL, NULL, NULL, NULL, (yyvsp[-2].nptr), NULL);
 	                                    }
-#line 2190 "y.tab.c"
+#line 2178 "y.tab.c"
     break;
 
-  case 67:
+  case 67: /* Stmt: READ '(' FIELD ')' ';'  */
 #line 490 "abstree.y"
                                         {
                                             head = get_last((yyvsp[-2].nptr));
@@ -2201,19 +2189,19 @@ yyreduce:
                                             }
                                             (yyval.nptr) = TreeCreate(TLookup("void"), NODE_READ, NULL, NULL, NULL, NULL, (yyvsp[-2].nptr), NULL);
 	                                    }
-#line 2205 "y.tab.c"
+#line 2193 "y.tab.c"
     break;
 
-  case 68:
+  case 68: /* Stmt: ID ASGN NILL ';'  */
 #line 500 "abstree.y"
                                                                 {
 			                                type_assign((yyvsp[-3].nptr), NULL, 1, 0, 0, 0, 0);
 			                                (yyval.nptr) = TreeCreate(TLookup("void"), NODE_ASGN, NULL, NULL, NULL, (yyvsp[-3].nptr), (yyvsp[-1].nptr), NULL);
 			        					}
-#line 2214 "y.tab.c"
+#line 2202 "y.tab.c"
     break;
 
-  case 69:
+  case 69: /* Stmt: FIELD ASGN NILL ';'  */
 #line 504 "abstree.y"
                              {
                                 head = get_last((yyvsp[-3].nptr));
@@ -2226,10 +2214,10 @@ yyreduce:
                                 }
 								(yyval.nptr) = TreeCreate(TLookup("void"), NODE_ASGN, NULL, NULL, NULL, (yyvsp[-3].nptr), (yyvsp[-1].nptr), NULL);
 						    }
-#line 2230 "y.tab.c"
+#line 2218 "y.tab.c"
     break;
 
-  case 70:
+  case 70: /* Stmt: ID ASGN EXPOSCALL '(' exprlist_exposcall ')' ';'  */
 #line 516 "abstree.y"
                                                                         {
                                                         if ((exprcount < 1) || (exprcount > 4))
@@ -2246,53 +2234,53 @@ yyreduce:
                                                         (yyval.nptr) = TreeCreate(TLookup("void"), NODE_ASGN, NULL, NULL, NULL, (yyvsp[-6].nptr), head1, NULL);
 
 													}
-#line 2250 "y.tab.c"
+#line 2238 "y.tab.c"
     break;
 
-  case 71:
+  case 71: /* Stmt: ID ASGN INIT '(' ')' ';'  */
 #line 531 "abstree.y"
                                                 {
                                         head = TreeCreate(TLookup("void"), NODE_INIT, NULL, NULL, NULL, NULL, NULL, NULL);
         								(yyval.nptr) = TreeCreate(TLookup("void"), NODE_ASGN, NULL, NULL, NULL, (yyvsp[-5].nptr), head, NULL);
 							        }
-#line 2259 "y.tab.c"
+#line 2247 "y.tab.c"
     break;
 
-  case 72:
+  case 72: /* Stmt: BRK ';'  */
 #line 536 "abstree.y"
                         {
                             (yyval.nptr) = TreeCreate(TLookup("void"), NODE_BRK, NULL, NULL, NULL, NULL, NULL, NULL);
                         }
-#line 2267 "y.tab.c"
+#line 2255 "y.tab.c"
     break;
 
-  case 73:
+  case 73: /* Stmt: CONTINUE ';'  */
 #line 540 "abstree.y"
                         {
                             (yyval.nptr) = TreeCreate(TLookup("void"), NODE_CONTINUE, NULL, NULL, NULL, NULL, NULL, NULL);
                         }
-#line 2275 "y.tab.c"
+#line 2263 "y.tab.c"
     break;
 
-  case 74:
+  case 74: /* Stmt: BRKP ';'  */
 #line 543 "abstree.y"
                     {
                         (yyval.nptr) = TreeCreate(TLookup("void"), NODE_BRKP, NULL, NULL, NULL, NULL, NULL, NULL);
                     }
-#line 2283 "y.tab.c"
+#line 2271 "y.tab.c"
     break;
 
-  case 75:
+  case 75: /* FIELD: ID '.' ID  */
 #line 548 "abstree.y"
                         {
                             (yyvsp[-2].nptr)->nodetype = NODE_FIELD;
                             type_assign((yyvsp[-2].nptr), (yyvsp[0].nptr), 1, 0, 0, 1, 0);
                             (yyval.nptr) = (yyvsp[-2].nptr);
                         }
-#line 2293 "y.tab.c"
+#line 2281 "y.tab.c"
     break;
 
-  case 76:
+  case 76: /* FIELD: FIELD '.' ID  */
 #line 553 "abstree.y"
                          {
                             head1 = head = get_last((yyvsp[-2].nptr));
@@ -2320,19 +2308,19 @@ yyreduce:
                                 exit(1);
                             }
                         }
-#line 2324 "y.tab.c"
+#line 2312 "y.tab.c"
     break;
 
-  case 77:
+  case 77: /* exprlist: Expr  */
 #line 581 "abstree.y"
                                 {
                                     exprcount = 1;
                                     (yyval.nptr) = (yyvsp[0].nptr);
                                 }
-#line 2333 "y.tab.c"
+#line 2321 "y.tab.c"
     break;
 
-  case 78:
+  case 78: /* exprlist: exprlist ',' Expr  */
 #line 585 "abstree.y"
                                 {
                                     indicator = 1;
@@ -2343,19 +2331,19 @@ yyreduce:
                                     head->ptr2 = (yyvsp[-2].nptr);
                                     (yyval.nptr) = head;
                                 }
-#line 2347 "y.tab.c"
+#line 2335 "y.tab.c"
     break;
 
-  case 79:
+  case 79: /* exprlist_exposcall: Expr  */
 #line 596 "abstree.y"
                           {
                                 exprcount = 1;
                                 (yyval.nptr) = (yyvsp[0].nptr);
                             }
-#line 2356 "y.tab.c"
+#line 2344 "y.tab.c"
     break;
 
-  case 80:
+  case 80: /* exprlist_exposcall: exprlist_exposcall ',' Expr  */
 #line 600 "abstree.y"
                                                   {
                                                     exprcount++;
@@ -2367,198 +2355,198 @@ yyreduce:
                                                     head->ptr1 = (yyvsp[0].nptr);
                                                     (yyval.nptr) = (yyvsp[-2].nptr);
                                                 }
-#line 2371 "y.tab.c"
+#line 2359 "y.tab.c"
     break;
 
-  case 81:
+  case 81: /* Expr: Expr PLUS Expr  */
 #line 612 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '+');
                                 (yyval.nptr) = TreeCreate(TLookup("integer"), NODE_PLUS , NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2380 "y.tab.c"
+#line 2368 "y.tab.c"
     break;
 
-  case 82:
+  case 82: /* Expr: Expr MINUS Expr  */
 #line 616 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '-');
                                 (yyval.nptr) = TreeCreate(TLookup("integer"), NODE_MINUS , NULL, NULL , NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2389 "y.tab.c"
+#line 2377 "y.tab.c"
     break;
 
-  case 83:
+  case 83: /* Expr: Expr MUL Expr  */
 #line 620 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '*');
                                 (yyval.nptr) = TreeCreate(TLookup("integer"), NODE_MUL , NULL, NULL , NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2398 "y.tab.c"
+#line 2386 "y.tab.c"
     break;
 
-  case 84:
+  case 84: /* Expr: Expr DIV Expr  */
 #line 624 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '/');
                                 (yyval.nptr) = TreeCreate(TLookup("integer"), NODE_DIV , NULL, NULL , NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2407 "y.tab.c"
+#line 2395 "y.tab.c"
     break;
 
-  case 85:
+  case 85: /* Expr: Expr MOD Expr  */
 #line 628 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '%');
                                 (yyval.nptr) = TreeCreate(TLookup("integer"), NODE_MOD , NULL, NULL , NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2416 "y.tab.c"
+#line 2404 "y.tab.c"
     break;
 
-  case 86:
+  case 86: /* Expr: Expr LT Expr  */
 #line 632 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '<');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_LT , NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2425 "y.tab.c"
+#line 2413 "y.tab.c"
     break;
 
-  case 87:
+  case 87: /* Expr: Expr LE Expr  */
 #line 636 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '#');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_LE , NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2434 "y.tab.c"
+#line 2422 "y.tab.c"
     break;
 
-  case 88:
+  case 88: /* Expr: Expr GT Expr  */
 #line 640 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '>');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_GT , NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2443 "y.tab.c"
+#line 2431 "y.tab.c"
     break;
 
-  case 89:
+  case 89: /* Expr: Expr GE Expr  */
 #line 644 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '$');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_GE , NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2452 "y.tab.c"
+#line 2440 "y.tab.c"
     break;
 
-  case 90:
+  case 90: /* Expr: Expr DEQ Expr  */
 #line 648 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, 'd');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_DEQ, NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2461 "y.tab.c"
+#line 2449 "y.tab.c"
     break;
 
-  case 91:
+  case 91: /* Expr: Expr NEQ Expr  */
 #line 652 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, 'n');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_NEQ, NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2470 "y.tab.c"
+#line 2458 "y.tab.c"
     break;
 
-  case 92:
+  case 92: /* Expr: Expr AND Expr  */
 #line 656 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '&');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_AND, NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2479 "y.tab.c"
+#line 2467 "y.tab.c"
     break;
 
-  case 93:
+  case 93: /* Expr: Expr OR Expr  */
 #line 660 "abstree.y"
                             {
                                 type_comp((yyvsp[-2].nptr)->type, (yyvsp[0].nptr)->type, '|');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_OR, NULL, NULL, NULL, (yyvsp[-2].nptr), (yyvsp[0].nptr), NULL);
                             }
-#line 2488 "y.tab.c"
+#line 2476 "y.tab.c"
     break;
 
-  case 94:
+  case 94: /* Expr: NOT Expr  */
 #line 664 "abstree.y"
                             {
                                 type_comp((yyvsp[0].nptr)->type, NULL, '!');
                                 (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_NOT, NULL, NULL, NULL, NULL, (yyvsp[0].nptr), NULL);
                             }
-#line 2497 "y.tab.c"
+#line 2485 "y.tab.c"
     break;
 
-  case 95:
+  case 95: /* Expr: '(' Expr ')'  */
 #line 668 "abstree.y"
                             {
                                 (yyval.nptr) = (yyvsp[-1].nptr);
                             }
-#line 2505 "y.tab.c"
+#line 2493 "y.tab.c"
     break;
 
-  case 96:
+  case 96: /* Expr: FIELD  */
 #line 671 "abstree.y"
                             {
                                 (yyval.nptr) = (yyvsp[0].nptr);
                             }
-#line 2513 "y.tab.c"
+#line 2501 "y.tab.c"
     break;
 
-  case 97:
+  case 97: /* Expr: NUM  */
 #line 674 "abstree.y"
                             {
                                 (yyval.nptr) = (yyvsp[0].nptr);
 				                (yyval.nptr)->type = TLookup("integer");
                             }
-#line 2522 "y.tab.c"
+#line 2510 "y.tab.c"
     break;
 
-  case 98:
+  case 98: /* Expr: MINUS NUM  */
 #line 678 "abstree.y"
                             {
                                 (yyvsp[0].nptr)->value.intval = ((yyvsp[0].nptr)->value.intval) * -1;   //negating the value
                                 (yyval.nptr) = (yyvsp[0].nptr);
 				                (yyval.nptr)->type = TLookup("integer");
                             }
-#line 2532 "y.tab.c"
+#line 2520 "y.tab.c"
     break;
 
-  case 99:
+  case 99: /* Expr: STRVAL  */
 #line 683 "abstree.y"
                                         {
         						(yyval.nptr) = (yyvsp[0].nptr);
 							    (yyval.nptr)->type = TLookup("string");
         					}
-#line 2541 "y.tab.c"
+#line 2529 "y.tab.c"
     break;
 
-  case 100:
+  case 100: /* Expr: ID  */
 #line 687 "abstree.y"
                                                 {
 				    			type_assign((yyvsp[0].nptr), NULL, 0, 0, 0, 0, 0);
 				    			(yyval.nptr) = (yyvsp[0].nptr);
 				            }
-#line 2550 "y.tab.c"
+#line 2538 "y.tab.c"
     break;
 
-  case 101:
+  case 101: /* Expr: ID '[' Expr ']'  */
 #line 691 "abstree.y"
                             {
 								type_assign_arr((yyvsp[-3].nptr), (yyvsp[-1].nptr), 0);
 								(yyval.nptr) = TreeCreate((yyvsp[-3].nptr)->type, NODE_ARRAY, NULL, NULL, NULL, (yyvsp[-3].nptr), (yyvsp[-1].nptr), NULL);
                             }
-#line 2559 "y.tab.c"
+#line 2547 "y.tab.c"
     break;
 
-  case 102:
+  case 102: /* Expr: ID '(' exprlist ')'  */
 #line 695 "abstree.y"
                             {
         						type_assign_arr((yyvsp[-3].nptr), (yyvsp[-1].nptr), 1);
@@ -2586,56 +2574,56 @@ yyreduce:
                                 else
                                     (yyval.nptr) = TreeCreate((yyvsp[-3].nptr)->type, NODE_FUNC, (yyvsp[-3].nptr)->name, NULL, Gtemp->paramlist, NULL, NULL, (yyvsp[-1].nptr));
                             }
-#line 2590 "y.tab.c"
+#line 2578 "y.tab.c"
     break;
 
-  case 103:
+  case 103: /* Expr: ID '(' ')'  */
 #line 721 "abstree.y"
                                 {
     							type_assign_arr((yyvsp[-2].nptr), NULL, 1);
                                 (yyval.nptr) = TreeCreate((yyvsp[-2].nptr)->type, NODE_FUNC, (yyvsp[-2].nptr)->name, NULL, Gtemp->paramlist, NULL, NULL, NULL);
                             }
-#line 2599 "y.tab.c"
+#line 2587 "y.tab.c"
     break;
 
-  case 104:
+  case 104: /* Expr: ID DEQNILL  */
 #line 725 "abstree.y"
                                         {
 	   						    type_assign((yyvsp[-1].nptr), NULL, 1, 0, 0, 0, 0);
 		                    	(yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_DEQ, NULL, NULL, NULL, (yyvsp[-1].nptr), (yyvsp[0].nptr), NULL);
 			    			}
-#line 2608 "y.tab.c"
+#line 2596 "y.tab.c"
     break;
 
-  case 105:
+  case 105: /* Expr: ID NEQNILL  */
 #line 729 "abstree.y"
                                 {
 	   						    type_assign((yyvsp[-1].nptr), NULL, 1, 0, 0, 0, 0);
 	                        	(yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_NEQ, NULL, NULL, NULL, (yyvsp[-1].nptr), (yyvsp[0].nptr), NULL);
 	        				}
-#line 2617 "y.tab.c"
+#line 2605 "y.tab.c"
     break;
 
-  case 106:
+  case 106: /* Expr: FIELD DEQNILL  */
 #line 733 "abstree.y"
                                 {
 	                            type_comp((yyvsp[-1].nptr), NULL, '=');
 	                            (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_DEQ, NULL, NULL, NULL, (yyvsp[-1].nptr), (yyvsp[0].nptr), NULL);
 	        				}
-#line 2626 "y.tab.c"
+#line 2614 "y.tab.c"
     break;
 
-  case 107:
+  case 107: /* Expr: FIELD NEQNILL  */
 #line 737 "abstree.y"
                                 {
 	                            type_comp((yyvsp[-1].nptr), NULL, '^');
 	                            (yyval.nptr) = TreeCreate(TLookup("boolean"), NODE_NEQ, NULL, NULL, NULL, (yyvsp[-1].nptr), (yyvsp[0].nptr), NULL);
 	        				}
-#line 2635 "y.tab.c"
+#line 2623 "y.tab.c"
     break;
 
 
-#line 2639 "y.tab.c"
+#line 2627 "y.tab.c"
 
       default: break;
     }
@@ -2795,13 +2783,13 @@ yyabortlab:
 yyexhaustedlab:
   yyerror (YY_("memory exhausted"));
   yyresult = 2;
-  /* Fall through.  */
+  goto yyreturn;
 #endif
 
 
-/*-----------------------------------------------------.
-| yyreturn -- parsing is finished, return the result.  |
-`-----------------------------------------------------*/
+/*-------------------------------------------------------.
+| yyreturn -- parsing is finished, clean up and return.  |
+`-------------------------------------------------------*/
 yyreturn:
   if (yychar != YYEMPTY)
     {

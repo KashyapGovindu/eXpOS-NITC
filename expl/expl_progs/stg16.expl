@@ -1,0 +1,39 @@
+decl
+int gcd(int a,int b);
+enddecl
+
+int gcd(int a,int b)
+{
+decl
+	int c,d;
+enddecl
+
+begin
+	if(a==0)then 
+		c = b;
+	else
+		d = b % a;
+		c = gcd(d,a);
+	endif;
+	return c;
+end
+}
+
+int main()
+{
+decl
+	int a,b,c;
+enddecl
+
+begin
+	breakpoint;
+	read(a);
+	read(b);
+	breakpoint;
+	//write(a);
+	//write(b);
+	c = gcd(a,b);
+	write(c);
+	return 0;
+end
+}

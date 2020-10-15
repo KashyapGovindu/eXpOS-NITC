@@ -1,0 +1,18 @@
+int main()
+{
+decl
+	int a,x;
+enddecl
+
+begin
+	a=2;
+	while(a <= 100)do
+		x = a % 2;
+		if(x==0)then
+		  write(a);
+		endif;
+	a=a+1;
+	endwhile;
+	return 0;
+end
+}
